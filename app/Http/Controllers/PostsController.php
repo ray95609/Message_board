@@ -81,7 +81,15 @@ class PostsController extends Controller
     public function show($id)
     {
         //
-        return view('Post.show');
+        $onePost=Posts::join('users','post_user_id','=','users.id')
+            ->where([['posts.id','=',$id]])
+            ->select(['posts.*'])->get()->first();
+
+        if(!$onePost){
+            return redirect()->route('posts.index')->with('fail','沒有文章');
+        }
+
+        return view('posts.show',['onePost'=>$onePost]);
     }
 
     /**
@@ -94,9 +102,8 @@ class PostsController extends Controller
     {
         //需要找到特定postid跟特定userid的文章
         //
-        $onePost=Posts:: join('users','posts.post_user_id','=','users.id')
+        $onePost=Posts::select(['posts.*'])
             ->where([['posts.id','=', $id]])
-            ->select(['posts.*','users.name'])
             ->get()->first();
         if(!$onePost){
             return redirect()->route('Post.index')->with('fail',"沒有文章");
@@ -132,8 +139,17 @@ class PostsController extends Controller
      * @param  \App\Models\Posts  $posts
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
         //
+        $return=['code'=>'fail'];
+        $delete=Posts::find($id);
+        if($delete){
+            $delete->delete();
+            $return['code']='success';
+
+        }
+        return response()->json($return);
+
     }
 }

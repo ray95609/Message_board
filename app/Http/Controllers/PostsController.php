@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Posts;
+use App\Models\Repost;
 use http\Env\Response;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -82,8 +83,9 @@ class PostsController extends Controller
     {
         //
         $onePost=Posts::join('users','post_user_id','=','users.id')
+            ->join('repost','repost.post_id','=','posts.id')
             ->where([['posts.id','=',$id]])
-            ->select(['posts.*'])->get()->first();
+            ->select(['posts.*','repost.*','users.*'])->get()->first();
 
         if(!$onePost){
             return redirect()->route('posts.index')->with('fail','沒有文章');
@@ -152,4 +154,36 @@ class PostsController extends Controller
         return response()->json($return);
 
     }
+
+
+    //回復文章
+    public function repost($id){
+        $repost= Posts::select(['posts.*'])
+            ->where([['posts.id','=', $id]])
+            ->get()->first();
+        return  view('Posts.re_creat',['repost'=>$repost]);
+
+    }
+
+    public function re_store(Request $request):RedirectResponse
+    {
+        $allPostData=$request->all();
+        $rePostData=[
+            'post_id'=>$allPostData['post_id'],
+            'repost_name'=>$allPostData['repost_name'],
+            'repost_content'=>$allPostData['repost_content'],
+            'repost_user_id'=>Auth::id()
+
+        ];
+        $re_store=Repost::create($rePostData);
+        if ($re_store){
+            return redirect()->route('posts.show',$re_store->post_id)->with('succeed','新增文章成功');
+
+        }else{
+            return redirect()->back()->with('fail','回復文章失敗');
+
+        }
+
+    }
+
 }

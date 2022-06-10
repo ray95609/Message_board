@@ -20,14 +20,32 @@
                 <article class="col-md-5 col-form-label text-md-right">{{$onePost->post_content}}</article>
             </div>
             <div class="offset-md-6">
-                <button type="submit" class="btn btn-primary">送出</button>
                 <a href="{{route('posts.index')}}" class="btn btn-info">返回</a>
             </div>
+                <a href="{{route('posts.re',$onePost->id)}}" class="float-right btn btn-primary">回覆文章</a>
 
 
     </div>
+    @foreach($onePost as $key =>$rows)
+    <div class="card-body" style="border:thick double #2d995b;">
+        <div class="form-group">
+            <label class="col-md-1 col-form-label text-md-right">回覆標題</label>
+            <div class="col-md-1 col-form-label text-md-right">
+                <h6>{{$onePost->repost_name}}</h6>
+            </div>
+        </div>
+
+        <div>
+            <label class="col-md-1 col-form-label text-md-right">文章內容</label>
+            <article class="col-md-5 col-form-label text-md-right">{{$onePost->repost_content}}</article>
+        </div>
 
 
+    </div>
+    @endforeach
+    <div class="offset-md-6">
+        <a href="{{route('posts.index')}}" class="btn btn-info">返回</a>
+    </div>
 
 
 

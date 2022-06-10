@@ -39,6 +39,17 @@ Route::group(['prefix' => 'posts'], function () {
     Route::get('show/{id}', 'PostsController@show')->name('posts.show');
     //刪除邏輯
     Route::delete('delete/{id}', 'PostsController@delete')->name('posts.delete');
+
+    //回復文章
+    Route::get('show/{id}/repost', 'PostsController@repost')->name('posts.re');
+
+    //儲存回復文章
+    Route::post('re_store', 'PostsController@re_store')->name('posts.re_store');
+
+    //編輯回復文章 兩個id 一個是原文章id 一個是回文章id class不一樣
+    Route::get('show/{id}/edit{id}','PostsController@re_edit')->name('posts.re_edit');
+
+
 });
 
 //測試 route

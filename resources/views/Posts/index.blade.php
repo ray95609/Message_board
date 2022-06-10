@@ -51,8 +51,8 @@
    function hrefShow(){
        let id=$(".show-data").data('id')
         alert(id);
-        //let ajaxUrl = "/posts/show/"+{{$rows->id}};
-        //location.href=ajaxUrl;
+        let ajaxUrl = "/posts/show/"+{{$rows->id}};
+        location.href=ajaxUrl;
     };
 
    function deletePost(){

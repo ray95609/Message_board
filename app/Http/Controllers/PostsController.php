@@ -83,15 +83,21 @@ class PostsController extends Controller
     {
         //
         $onePost=Posts::join('users','post_user_id','=','users.id')
+            ->where([['posts.id','=',$id]])
+            ->select(['posts.*','users.*'])->get()->first();
+
+        $repost=Posts::join('users','post_user_id','=','users.id')
             ->join('repost','repost.post_id','=','posts.id')
             ->where([['posts.id','=',$id]])
-            ->select(['posts.*','repost.*','users.*'])->get()->first();
+            ->select(['posts.*','repost.*','users.*'])->get();
 
         if(!$onePost){
             return redirect()->route('posts.index')->with('fail','沒有文章');
         }
 
-        return view('posts.show',['onePost'=>$onePost]);
+        return view('posts.show',['onePost'=>$onePost,
+                                        'repost'=>$repost
+        ]);
     }
 
     /**

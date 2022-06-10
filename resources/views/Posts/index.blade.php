@@ -29,13 +29,13 @@
             <td >{{$key+1}} </td>
             <td data-id="{{$rows->id}}" class="show-data"
                 style="cursor: pointer"
-                onclick="hrefShow()">{{$rows->post_name}} </td>
+                >{{$rows->post_name}} </td>
             <td >{{$rows->name}} </td>
             <td >{{$rows->post_content}}</td>
             @if(Auth::user() && Auth::id() ==$rows->post_user_id)
                 <td>
                 <a href="{{route('posts.edit',['id'=>$rows->id])}}" class="btn btn-success btn-sm mt-sm-1" >編輯</a>
-                    <button  onclick="deletePost()" ID="deleteButton"
+                    <button  ID="deleteButton"
                             data-url="{{route('posts.delete',['post_id'=>$rows->id])}}"
                             class="btn btn-danger btn-sm mt-sm-1 deleteButton">刪除</button>
                 </td>
@@ -46,16 +46,18 @@
 
 </table>
 
-<script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript"></script>
+<script >
 
-   function hrefShow(){
-       let id=$(".show-data").data('id')
+    $(".show-data").click(function(){
+        let id=$(".show-data").data('id');
         alert(id);
         let ajaxUrl = "/posts/show/"+{{$rows->id}};
         location.href=ajaxUrl;
-    };
+    });
 
-   function deletePost(){
+   $("#deleteButton").on('click',function(){
 
        let ajaxUrl = $("#deleteButton").data('url');
         alert(ajaxUrl)
@@ -63,7 +65,7 @@
       $.ajax(
            ajaxUrl, {
                type: 'PUT',
-               data: {"_token": {{csrf_token()}},//這個逗點的意義是???
+               data: {"_token": {{csrf_token()}},
                },
                success: function (result) {
                    if(result.code==='success'){
@@ -75,7 +77,7 @@
                }
            });
 
-   }
+   })
 
 </script>
 

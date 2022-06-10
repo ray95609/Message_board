@@ -30,6 +30,7 @@
     <div class="card-body" style="border:thick double #2d995b;">
         <div class="form-group">
             <label class="col-md-1 col-form-label text-md-right">回覆標題</label>
+            <label class="col-md-1 col-form-label text-md-right">回覆者:{{$rows->name}}</label>
             <div class="col-md-1 col-form-label text-md-right">
                 <h6>{{$rows->repost_name}}</h6>
             </div>

@@ -22,7 +22,7 @@
             <div class="offset-md-6">
                 <a href="{{route('posts.index')}}" class="btn btn-info">返回</a>
             </div>
-                <a href="{{route('posts.re',$onePost->id)}}" class="float-right btn btn-primary">回覆文章</a>
+                <a href="{{route('posts.re',$onePost->post_id)}}" class="float-right btn btn-primary">回覆文章</a>
 
 
     </div>

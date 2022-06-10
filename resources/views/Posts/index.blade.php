@@ -47,38 +47,39 @@
 </table>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script type="text/javascript"></script>
-<script >
+<script type="text/javascript">
 
-    $(".show-data").click(function(){
-        let id=$(".show-data").data('id');
-        alert(id);
-        let ajaxUrl = "/posts/show/"+{{$rows->id}};
-        location.href=ajaxUrl;
-    });
+    $(document).ready(init)
+    function init(){
+        $(".show-data").click(function(){
+            let id=$(this).data('id');
 
-   $("#deleteButton").on('click',function(){
+            let ajaxUrl = "/posts/show/"+id;
+            location.href=ajaxUrl;
+        });
 
-       let ajaxUrl = $("#deleteButton").data('url');
-        alert(ajaxUrl)
+        $("#deleteButton").on('click',function(){
 
-      $.ajax(
-           ajaxUrl, {
-               type: 'PUT',
-               data: {"_token": {{csrf_token()}},
-               },
-               success: function (result) {
-                   if(result.code==='success'){
-                    alert('Delete Success')
-                    location.reload();
-                }else{
-                    alert('Delete Fail');
-                }
-               }
-           });
+            let ajaxUrl = $("#deleteButton").data('url');
+            alert(ajaxUrl)
 
-   })
+            $.ajax(
+                ajaxUrl, {
+                    type: 'PUT',
+                    data: {"_token": {{csrf_token()}},
+                    },
+                    success: function (result) {
+                        if(result.code==='success'){
+                            alert('Delete Success')
+                            location.reload();
+                        }else{
+                            alert('Delete Fail');
+                        }
+                    }
+                });
 
+        })
+    }
 </script>
 
 

@@ -25,7 +25,7 @@
             </div>
             <div class="offset-md-6">
                 <button type="submit" class="btn btn-primary">送出</button>
-                <a href="{{route('posts.index')}}" class="btn btn-info">返回</a>
+                <a href="{{route('posts.show',$repost->id)}}" class="btn btn-info">返回</a>
             </div>
 
         </form>

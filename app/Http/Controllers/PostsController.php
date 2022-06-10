@@ -84,7 +84,7 @@ class PostsController extends Controller
         //
         $onePost=Posts::join('users','post_user_id','=','users.id')
             ->where([['posts.id','=',$id]])
-            ->select(['posts.*','users.*'])->get()->first();
+            ->select(['posts.*','posts.id as post_id','users.*'])->get()->first();
 
         $repost=Posts::join('users','post_user_id','=','users.id')
             ->join('repost','repost.post_id','=','posts.id')

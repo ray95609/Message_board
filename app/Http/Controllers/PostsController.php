@@ -20,7 +20,7 @@ class PostsController extends Controller
     public function index()
     {
         $allPosts = Posts::join('users','posts.post_user_id','=','users.id')
-            ->select(['posts.*','users.name'])->get();
+            ->select(['posts.*','users.name'])->paginate(5);
 
 
         //導入view
@@ -89,7 +89,7 @@ class PostsController extends Controller
         $repost=Posts::join('users','post_user_id','=','users.id')
             ->join('repost','repost.post_id','=','posts.id')
             ->where([['posts.id','=',$id]])
-            ->select(['posts.*','repost.*','users.*'])->get();
+            ->select(['posts.*','repost.*','repost.id as repost_id','users.*','users.id as repost_user_id'])->paginate(5);
 
         if(!$onePost){
             return redirect()->route('posts.index')->with('fail','沒有文章');
@@ -183,7 +183,7 @@ class PostsController extends Controller
         ];
         $re_store=Repost::create($rePostData);
         if ($re_store){
-            return redirect()->route('posts.show',$re_store->post_id)->with('succeed','新增文章成功');
+            return redirect()->route('posts.show',$rePostData)->with('succeed','新增文章成功');
 
         }else{
             return redirect()->back()->with('fail','回復文章失敗');
@@ -191,5 +191,54 @@ class PostsController extends Controller
         }
 
     }
+
+    public function re_edit($id,$repost_id){
+
+        $repost=Repost::join('posts','repost.post_id','=','posts.id')
+        ->select('posts.*','repost.*')
+        ->where('repost.id','=',$repost_id)->get()->first();
+
+        if($repost){
+            return view('posts.re_edit',['repost'=>$repost]);
+        }else{
+            return redirect()->back()->with('fail','編輯文章不存在');
+        }
+    }
+
+
+    public function re_update(Request $request,$id,$repost_id)
+    {
+
+        $allDate=$request->all();
+        $upDate=Repost::find($repost_id);
+        $upDate->repost_name=$allDate['repost_name'];
+        $upDate->repost_content=$allDate['repost_content'];
+
+
+
+        $reUpdate=$upDate->save();
+
+        if($reUpdate){
+            return redirect()->route('posts.show',$id)->with('succeed','回覆文章編輯成功');
+
+        }else{
+            return redirect()->back()->with('fail','回覆文章編輯失敗');
+
+        }
+
+
+    }
+
+    public function re_delete($id,$repost_id){
+
+        $return=['code'=>'fail'];
+        $delete_repost=Repost::find($repost_id);
+        if($delete_repost){
+           $delete_repost->delete();
+            $return=['code'=>'success'];
+        }
+        return response()->json($return);
+    }
+
 
 }

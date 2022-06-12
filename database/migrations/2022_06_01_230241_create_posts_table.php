@@ -25,6 +25,18 @@ class CreatePostsTable extends Migration
         });
         //對表註解
         \DB::statement("ALTER TABLE `posts` comment '文章'");
+
+
+        Schema::create('repost',function (Blueprint $table){
+            $table->bigIncrements('id');
+            $table->bigInteger('post_id');
+            $table->string('repost_name');
+            $table->text('repost_content');
+            $table->bigInteger('repost_user_id');
+            $table->timestamp('created_at');
+            $table->timestamp('updated_at');
+        });
+        \DB::statement("ALTER TABLE 'repost' comment '回覆文章'");
     }
 
 

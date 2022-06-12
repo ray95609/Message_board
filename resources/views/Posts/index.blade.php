@@ -35,7 +35,7 @@
             @if(Auth::user() && Auth::id() ==$rows->post_user_id)
                 <td>
                 <a href="{{route('posts.edit',['id'=>$rows->id])}}" class="btn btn-success btn-sm mt-sm-1" >編輯</a>
-                    <button  ID="deleteButton"
+                    <button
                             data-url="{{route('posts.delete',['post_id'=>$rows->id])}}"
                             class="btn btn-danger btn-sm mt-sm-1 deleteButton">刪除</button>
                 </td>
@@ -46,11 +46,12 @@
 
 </table>
 
+<!--axios.js & fetch  非同步請求的另外套件-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
 
-    $(document).ready(init)
-    function init(){
+
+
         $(".show-data").click(function(){
             let id=$(this).data('id');
 
@@ -58,15 +59,15 @@
             location.href=ajaxUrl;
         });
 
-        $("#deleteButton").on('click',function(){
+        $(".deleteButton").on('click',function(){
 
-            let ajaxUrl = $("#deleteButton").data('url');
-            alert(ajaxUrl)
+            let ajaxUrl = $(".deleteButton").data('url');
 
             $.ajax(
                 ajaxUrl, {
-                    type: 'PUT',
-                    data: {"_token": {{csrf_token()}},
+                    type: 'DELETE',
+                    data: {
+                        "_token": "{{csrf_token()}}",
                     },
                     success: function (result) {
                         if(result.code==='success'){
@@ -79,7 +80,7 @@
                 });
 
         })
-    }
+
 </script>
 
 

@@ -56,6 +56,19 @@ Route::group(['prefix' => 'posts'], function () {
     Route::delete('show/{id}/delete{repost_id}','Postscontroller@re_delete')->name('posts.re_delete');
 });
 
+
+
+//測試串接外部api 使用 guzzle
+Route::group(['prefix'=>'guzzle'],function (){
+    Route::get('index','GuzzleController@index')->name('guzzle.index');
+
+
+
+
+});
+
+
+
 //測試 route
 /*Route::get('/news','NewsController@index');
 Route::get('/news/{id}','NewsController@show_id');

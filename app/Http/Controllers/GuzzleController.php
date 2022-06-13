@@ -21,6 +21,13 @@ class GuzzleController extends Controller
 
         $puls=carbon::parse($now)->diffInDays('2022-01-01',true);
 
+        if($onede[$puls]){
+            $puls=$puls;
+
+        }else{
+            $puls=$puls-1;
+
+        };
 
 
         return view('guzzle.index',['onede'=>$onede , 'puls'=>$puls]);

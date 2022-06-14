@@ -7,10 +7,15 @@
 
     <!--接下來要存入資料庫  再讀出來  稍微研究一下boostrap-->
     <!--迴圈列印出7天-->
+    @if(Session::has('DB'))
+    <div class="alert alert-info" role="alert">
+        <strong>今日確診數據是從資料庫抓出來的</strong>
+    </div>
+    @endif
     <table class="table table-hover">
         <thead class="thead-dark">
 
-        <label class="row justify-content-center"><strong>COVID-19 確診數據</strong></label>
+        <label class="row justify-content-center"><strong>COVID-19 今日確診數據</strong></label>
         <tr>
             <th>日期</th>
             <th>國家</th>
@@ -21,13 +26,25 @@
         </thead>
         <tbody>
         <tr>
-            <td>{{$onede['a04']}}</td>
-            <td>{{$onede['a03']}}</td>
-            <td>{{$onede['a02']}}</td>
-            <td>{{$onede['a05']}}</td>
-            <td>{{$onede['a07']}}</td>
+            @if(Session::has('DB'))
+            @foreach($select as $key=>$rows)
+            <td>{{$rows->date}}</td>
+            <td>{{$rows->country}}</td>
+            <td>{{$rows->local}}</td>
+            <td class="animation">{{$rows->total_diagnose}}</td>
+            <td>{{$rows->curdate_diagnose}}</td>
+            @endforeach
+            @endif
         </tr>
-
+            @if(Session::has('API'))
+            <tr>
+                <td>{{$onede['a04']}}</td>
+                <td>{{$onede['a03']}}</td>
+                <td>{{$onede['a02']}}</td>
+                <td>{{$onede['a05']}}</td>
+                <td>{{$onede['a07']}}</td>
+            </tr>
+            @endif
         </tbody>
 
     </table>
@@ -45,6 +62,8 @@
         </tr>
         </thead>
         <tbody>
+        {{--asort倒敘的排列--}}
+        {{asort($sevende)}}
         @foreach($sevende as $key=>$rows)
         <tr>
             <td>{{$rows['a04']}}</td>

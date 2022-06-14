@@ -33,10 +33,23 @@ class CreatePostsTable extends Migration
             $table->string('repost_name');
             $table->text('repost_content');
             $table->bigInteger('repost_user_id');
-            $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));;
-            $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));;
+            $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
         \DB::statement("ALTER TABLE 'repost' comment '回覆文章'");
+
+        Schema::create('api_covid_19',function (Blueprint $table){
+            $table->bigIncrements('id');
+            $table->date('date')->nullable();
+            $table->bigInteger('curdate_diagnose')->comment('當日確診');
+            $table->bigInteger('total_diagnose')->comment('總確診');
+            $table->string('local')->comment('地區');
+            $table->string('country')->comment('國家');
+            $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
+
+        });
+
     }
 
 

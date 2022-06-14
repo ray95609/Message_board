@@ -15,21 +15,22 @@ class GuzzleController extends Controller
 ');
         $deresponse= json_decode( $response->getBody()->getContents(), true);
 
-        $onede=$deresponse;
+        $onede=end($deresponse);
 
-        $now=Carbon::now();
+        $count=count($deresponse);
 
-        $puls=carbon::parse($now)->diffInDays('2022-01-01',true);
-
-        if($onede[$puls]){
-            $puls=$puls;
-
-        }else{
-            $puls=$puls-1;
-
-        };
+        $sevende=array_slice($deresponse,$count-8,7);
 
 
-        return view('guzzle.index',['onede'=>$onede , 'puls'=>$puls]);
+
+
+
+
+        //$now=Carbon::now();
+        //$puls=carbon::parse($now)->diffInDays('2022-01-01',true);
+
+
+
+        return view('guzzle.index',['onede'=>$onede,'sevende'=>$sevende]);
     }
 }

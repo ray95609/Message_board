@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'PostsController@index')->name('posts.index');
 //Laravel 內建登入、註冊、忘記密碼
 Auth::routes();
 //Lavavel內建登入頁面

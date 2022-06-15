@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 
 class PostsController extends Controller
 {
@@ -208,32 +209,45 @@ class PostsController extends Controller
 
     //回復文章
     public function repost($id){
-        $repost= Posts::select(['posts.*'])
-            ->where([['posts.id','=', $id]])
-            ->get()->first();
-        return  view('Posts.re_creat',['repost'=>$repost]);
+
+        if (Auth::user()){
+            $repost= Posts::select(['posts.*'])
+                ->where([['posts.id','=', $id]])
+                ->get()->first();
+            return  view('Posts.re_creat',['repost'=>$repost]);
+
+        }else{
+            return redirect(route('login'));
+
+        }
+
 
     }
 
     public function re_store(Request $request):RedirectResponse
     {
-        $allPostData=$request->all();
-        //用陣列的方式把 前端request的值，塞入相對應的key中
-        $rePostData=[
-            'post_id'=>$allPostData['post_id'],
-            'repost_name'=>$allPostData['repost_name'],
-            'repost_content'=>$allPostData['repost_content'],
-            'repost_user_id'=>Auth::id()
+        if(Auth::user()){
+            $allPostData=$request->all();
+            //用陣列的方式把 前端request的值，塞入相對應的key中
+            $rePostData=[
+                'post_id'=>$allPostData['post_id'],
+                'repost_name'=>$allPostData['repost_name'],
+                'repost_content'=>$allPostData['repost_content'],
+                'repost_user_id'=>Auth::id()
 
-        ];
-        $re_store=Repost::create($rePostData);
-        if ($re_store){
-            return redirect()->route('posts.show',$rePostData)->with('succeed','新增文章成功');
+            ];
+            $re_store=Repost::create($rePostData);
+            if ($re_store){
+                return redirect()->route('posts.show',$rePostData)->with('succeed','新增文章成功');
 
+            }else{
+                return redirect()->back()->with('fail','回復文章失敗');
+
+            }
         }else{
-            return redirect()->back()->with('fail','回復文章失敗');
-
+            return redirect(route('login'));
         }
+
 
     }
 

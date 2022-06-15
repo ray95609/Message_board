@@ -5,7 +5,11 @@
 
 
 @section('content')
-
+    @if(Session::has('nouser'))
+        <div class="alert alert-info" role="alert">
+            <strong>請先登入才能回覆</strong>
+        </div>
+    @endif
     <div class="dropdown m-3 row justify-content-end">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             文章排序

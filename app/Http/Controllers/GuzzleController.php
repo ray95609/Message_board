@@ -94,6 +94,13 @@ class GuzzleController extends Controller
      * @return Application|Factory|View
      * @throws GuzzleException
      */
+
+    /***
+    1-把open api的url獨立出來->方便修改或給其他function使用
+    2-把api call出來的資料用一個function先call出來,避免一直去open api請求
+    3-把7天的資料也先存進去,再call出最近1天的資料,及最近7天的資料,分開擺放
+
+     */
     public function example_index()
     {
 

@@ -15,6 +15,14 @@
             <a class="dropdown-item" href="{{route('posts.SortByNew')}}">最新文章</a>
             <a class="dropdown-item" href="{{route('posts.SortByUpdate')}}">最新編輯</a>
         </div>
+
+        <form class="form-inline" role="search" action="{{route('posts.search')}}" method="GET" >
+            <div class="form-group">
+                <input name="keyword" id="keyword" class="form-control mr-sm-2" type="text" placeholder="輸入查詢條件">
+            </div>
+            <button class="btn my-2 my-sm-0" type="submit" style="background:none; margin-left:-3rem; color:#ff9d00;" ></button>
+        </form>
+
     </div>
 
     <div class="card-header">

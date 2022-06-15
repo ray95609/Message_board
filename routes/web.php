@@ -35,6 +35,9 @@ Route::group(['prefix' => 'posts'], function () {
     //文章排序-更新時間-新->舊
     Route::get('index/update','PostsController@postsSortByUpdate')->name('posts.SortByUpdate');
 
+    //文章搜尋
+    Route::get('index/search','PostsController@postsSearch')->name('posts.search');
+
     //新增頁
     Route::get('create', 'PostsController@create')->name('posts.create');
     //儲存邏輯

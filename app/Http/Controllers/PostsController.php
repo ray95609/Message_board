@@ -30,7 +30,8 @@ class PostsController extends Controller
     //文章排序 舊->新
     public function postsSortByOld(){
         $allPosts = Posts::join('users','posts.post_user_id','=','users.id')
-            ->select(['posts.*','users.name'])->orderBy('created_at')->paginate(5);
+            ->select(['posts.*','users.name'])
+            ->orderBy('created_at')->paginate(5);
 
         return view('Posts.index',['allPosts'=>$allPosts]);
     }
@@ -38,7 +39,8 @@ class PostsController extends Controller
     //文章排序 新->舊
     public function postsSortByNew(){
         $allPosts = Posts::join('users','posts.post_user_id','=','users.id')
-            ->select(['posts.*','users.name'])->orderBy('created_at','desc')->paginate(5);
+            ->select(['posts.*','users.name'])
+            ->orderBy('created_at','desc')->paginate(5);
 
         return view('Posts.index',['allPosts'=>$allPosts]);
     }
@@ -46,9 +48,25 @@ class PostsController extends Controller
     //文章排序 更新時間 新->舊
     public function postsSortByUpdate(){
         $allPosts = Posts::join('users','posts.post_user_id','=','users.id')
-            ->select(['posts.*','users.name'])->orderBy('updated_at','desc')->paginate(5);
+            ->select(['posts.*','users.name'])
+            ->orderBy('updated_at','desc')->paginate(5);
 
         return view('Posts.index',['allPosts'=>$allPosts]);
+    }
+
+    //文章搜尋
+    public function postsSearch(Request $request){
+        //因為是get方法的route，所以用Request->get() 來接get請求的submit
+        $keyword=$request->get('keyword');
+        $allPosts = Posts::join('users','posts.post_user_id','=','users.id')
+            ->select(['posts.*','users.name'])
+            ->where([['post_name','LIKE',"%{$keyword}%"]])
+            ->orWhere([['post_content','LIKE',"%{$keyword}%"]])
+            ->orderBy('updated_at','desc')->paginate(5);
+
+
+        return view('Posts.index',['allPosts'=>$allPosts]);
+
     }
 
     /**

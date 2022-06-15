@@ -5,8 +5,8 @@
 
 
 @section('content')
+    <div class="m-3 row justify-content-end"><a href="{{route('guzzle.index')}}" ><button class="btn-outline-info">每日確診人數</button></a></div>
 
-{{--為什麼不用寫head、body、html標籤--}}
 <div class="card-header">
     文章列表
     <a href="{{route('posts.create')}}" class="float-right btn btn-primary">新增文章</a>
@@ -44,7 +44,10 @@
     @endforeach
     </tbody>
 </table>
-{!! $allPosts->links() !!}
+<div class="row">{!! $allPosts->links() !!}</div>
+
+
+
 <!--axios.js & fetch  非同步請求的另外套件-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">

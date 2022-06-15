@@ -76,5 +76,7 @@
         </tbody>
 
     </table>
-
+    <div class="offset-md-6">
+        <a href="{{route('posts.index')}}" class="btn btn-info">返回</a>
+    </div>
 @endsection

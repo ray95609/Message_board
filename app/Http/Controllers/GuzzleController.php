@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Api_Covid_19;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Carbon;
 use GuzzleHttp\Client;
-use MongoDB\Driver\Session;
+use Illuminate\Support\Facades\Session;
 
 class GuzzleController extends Controller
 {
@@ -33,10 +34,19 @@ class GuzzleController extends Controller
             'country'=>$onede['a03']
 
         ];
-        $today=Carbon::today();
+        $today=Carbon::now();
+        $today_19PM=Carbon::today()->addHours(19);
+        $yesterday=Carbon::yesterday();
+
+        if($today>$today_19PM){
+            $today=$today;
+        }else{
+            $today=$yesterday;
+        }
 
         $select=Api_Covid_19::select('api_covid_19.*')
             ->where([['api_covid_19.date','=',$today]])->get();
+
 
 
         //$now=Carbon::now();
@@ -51,12 +61,14 @@ class GuzzleController extends Controller
 
             $save=Api_Covid_19::create($save_DB_date);
             //把資料丟進Session裡
+            Session::forget('DB');
             session(['API'=>'DB無資料']);
             return view('guzzle.index',['onede'=>$onede,'sevende'=>$sevende]);
 
         }else{
             //把資料丟進Session裡
-           session(['DB'=>'DB有資料']);
+            Session::forget('API');
+            session(['DB'=>'DB有資料']);
             return view('guzzle.index',['select'=>$select,'sevende'=>$sevende]);
 
         }

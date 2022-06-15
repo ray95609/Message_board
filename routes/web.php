@@ -59,10 +59,7 @@ Route::group(['prefix' => 'posts'], function () {
 //測試串接外部api 使用 guzzle
 Route::group(['prefix'=>'guzzle'],function (){
     Route::get('index','GuzzleController@index')->name('guzzle.index');
-
-
-
-
+    Route::get('example_index','GuzzleController@example_index')->name('guzzle.example_index');
 });
 
 

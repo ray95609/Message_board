@@ -25,6 +25,16 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['prefix' => 'posts'], function () {
     //列表頁
     Route::get('index', 'PostsController@index')->name('posts.index');
+
+    //文章排序-舊->新
+    Route::get('index/old','PostsController@postsSortByOld')->name('posts.SortByOld');
+
+    //文章排序-新->舊
+    Route::get('index/new','PostsController@postsSortByNew')->name('posts.SortByNew');
+
+    //文章排序-更新時間-新->舊
+    Route::get('index/update','PostsController@postsSortByUpdate')->name('posts.SortByUpdate');
+
     //新增頁
     Route::get('create', 'PostsController@create')->name('posts.create');
     //儲存邏輯
@@ -51,7 +61,7 @@ Route::group(['prefix' => 'posts'], function () {
     Route::put('show/{id}/re_update/{repost_id}','PostsController@re_update')->name('posts.re_update');
 
     //回覆文章刪除
-    Route::delete('show/{id}/delete{repost_id}','Postscontroller@re_delete')->name('posts.re_delete');
+    Route::put('show/{id}/delete{repost_id}','Postscontroller@re_delete')->name('posts.re_delete');
 });
 
 

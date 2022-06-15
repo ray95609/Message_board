@@ -5,9 +5,19 @@
 
 
 @section('content')
-    <div class="m-3 row justify-content-end"><a href="{{route('guzzle.index')}}" ><button class="btn-outline-info">每日確診人數</button></a></div>
 
-<div class="card-header">
+    <div class="dropdown m-3 row justify-content-end">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            文章排序
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="{{route('posts.SortByOld')}}">較早文章</a>
+            <a class="dropdown-item" href="{{route('posts.SortByNew')}}">最新文章</a>
+            <a class="dropdown-item" href="{{route('posts.SortByUpdate')}}">最新編輯</a>
+        </div>
+    </div>
+
+    <div class="card-header">
     文章列表
     <a href="{{route('posts.create')}}" class="float-right btn btn-primary">新增文章</a>
 </div>
@@ -15,6 +25,7 @@
 
 <table class="table table-hover">
     <thead>{{--標頭標籤--}}
+
     <tr>
         <th> 文章編號</th>
         <th> 文章標題</th>
@@ -46,7 +57,9 @@
 </table>
 <div class="row">{!! $allPosts->links() !!}</div>
 
-
+    <div class="m-2 row justify-content-end">
+        <a href="{{route('guzzle.index')}}" ><button class="btn-outline-info">每日確診人數</button></a>
+    </div>
 
 <!--axios.js & fetch  非同步請求的另外套件-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

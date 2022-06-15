@@ -27,6 +27,30 @@ class PostsController extends Controller
         return view('Posts.index',['allPosts'=>$allPosts]);
     }
 
+    //文章排序 舊->新
+    public function postsSortByOld(){
+        $allPosts = Posts::join('users','posts.post_user_id','=','users.id')
+            ->select(['posts.*','users.name'])->orderBy('created_at')->paginate(5);
+
+        return view('Posts.index',['allPosts'=>$allPosts]);
+    }
+
+    //文章排序 新->舊
+    public function postsSortByNew(){
+        $allPosts = Posts::join('users','posts.post_user_id','=','users.id')
+            ->select(['posts.*','users.name'])->orderBy('created_at','desc')->paginate(5);
+
+        return view('Posts.index',['allPosts'=>$allPosts]);
+    }
+
+    //文章排序 更新時間 新->舊
+    public function postsSortByUpdate(){
+        $allPosts = Posts::join('users','posts.post_user_id','=','users.id')
+            ->select(['posts.*','users.name'])->orderBy('updated_at','desc')->paginate(5);
+
+        return view('Posts.index',['allPosts'=>$allPosts]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -88,7 +112,8 @@ class PostsController extends Controller
 
         $repost=Posts::join('users','post_user_id','=','users.id')
             ->join('repost','repost.post_id','=','posts.id')
-            ->where([['posts.id','=',$id]])
+            ->where([['posts.id','=',$id],
+                    ['repost.status','=',1]   ])
             ->select(['posts.*','repost.*','repost.id as repost_id','users.*','users.id as repost_user_id'])->paginate(5);
 
         if(!$onePost){
@@ -99,6 +124,7 @@ class PostsController extends Controller
                                         'repost'=>$repost
         ]);
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -174,6 +200,7 @@ class PostsController extends Controller
     public function re_store(Request $request):RedirectResponse
     {
         $allPostData=$request->all();
+        //用陣列的方式把 前端request的值，塞入相對應的key中
         $rePostData=[
             'post_id'=>$allPostData['post_id'],
             'repost_name'=>$allPostData['repost_name'],
@@ -211,6 +238,7 @@ class PostsController extends Controller
 
         $allDate=$request->all();
         $upDate=Repost::find($repost_id);
+        //資料庫裡的repost_name欄位 塞入request的值 用非陣列的方式
         $upDate->repost_name=$allDate['repost_name'];
         $upDate->repost_content=$allDate['repost_content'];
 
@@ -234,7 +262,8 @@ class PostsController extends Controller
         $return=['code'=>'fail'];
         $delete_repost=Repost::find($repost_id);
         if($delete_repost){
-           $delete_repost->delete();
+            $delete_repost->status=0;
+            $delete_repost->save();
             $return=['code'=>'success'];
         }
         return response()->json($return);

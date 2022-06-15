@@ -34,6 +34,7 @@ class CreateRepostAndApiCovidTable extends Migration
             $table->string('repost_name');
             $table->text('repost_content');
             $table->bigInteger('repost_user_id');
+            $table->integer('status')->default(1);
             $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));;
             $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));;
         });

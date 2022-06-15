@@ -45,15 +45,17 @@ class GuzzleController extends Controller
         $today_19PM = Carbon::today()->addHours(19);
         $yesterday = Carbon::yesterday();
 
-        //這邊怪怪的 今日永遠不會大於 +19 小時的 今日時間
+
+
         if ($today > $today_19PM) {
-            $today = $today;
+            $today = $today->format('Y-m-d');
         } else {
-            $today = $yesterday;
+            $today =$yesterday->format('Y-m-d');
         }
 
         $select = Api_Covid_19::select('api_covid_19.*')
             ->where([['api_covid_19.date', '=', $today]])->get();
+
 
 
         //$now=Carbon::now();

@@ -17,6 +17,7 @@ class Repost extends Model
         'repost_name',
         'repost_content',
         'repost_user_id',
+        'status',
         'created_at',
         'updated_at',
     ];

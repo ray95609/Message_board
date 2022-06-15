@@ -65,7 +65,7 @@
         $.ajax(
             ajaxUrl,
             {
-                type:'DELETE',
+                type:'PUT',
                 data:{"_token":"{{csrf_token()}}" },
                 success:function (result){
                     if(result.code==='success'){

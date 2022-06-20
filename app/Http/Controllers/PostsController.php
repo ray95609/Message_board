@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Posts;
 use App\Models\Repost;
 use http\Env\Response;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use Illuminate\View\View;
 
 class PostsController extends Controller
 {
@@ -27,6 +30,49 @@ class PostsController extends Controller
         //導入view
         return view('Posts.index',['allPosts'=>$allPosts]);
     }
+
+
+    /**
+     * @Notes
+     * @User rogerlu
+     * @Date 2022/6/20
+     * @Time 下午 02:03
+     * @return Application|Factory|View
+     */
+    public function index_example(Request $request)
+    {
+
+
+        $model = Posts::join('users','posts.post_user_id','=','users.id')
+            ->select(['posts.*','users.name']);
+
+        //當有keyword
+        if($request->input('keyword')){
+            $keyword = $request->input('keyword');
+            $model->where([['post_name','LIKE',"%{$keyword}%"]])
+                ->orWhere([['post_content','LIKE',"%{$keyword}%"]]);
+        }
+
+        //當有sort
+        if($request->input('sort')){
+            $sort = $request->input('sort');
+            if($sort=="old"){
+                $model->orderBy('created_at','asc');
+            }elseif($sort=="new"){
+                $model->orderBy('created_at','desc');
+            }elseif($sort=="update"){
+                $model->orderBy('updated_at','desc');
+            }
+        }else{
+            $model->orderBy('created_at','desc');
+        }
+
+        //起分頁
+        $allPosts = $model->paginate(5);
+        //導入view
+        return view('Posts.index_example',['allPosts'=>$allPosts]);
+    }
+
 
     //文章排序 舊->新
     public function postsSortByOld(){
@@ -221,7 +267,7 @@ class PostsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Posts  $posts
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function edit($id)
     {

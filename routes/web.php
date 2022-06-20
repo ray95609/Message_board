@@ -26,6 +26,9 @@ Route::group(['prefix' => 'posts'], function () {
     //列表頁
     Route::get('index', 'PostsController@index')->name('posts.index');
 
+    //列表頁 - 查詢排序 範例版本
+    Route::get('index_example', 'PostsController@index_example')->name('posts.index_example');
+
     //文章排序-舊->新
     Route::get('index/old','PostsController@postsSortByOld')->name('posts.SortByOld');
 

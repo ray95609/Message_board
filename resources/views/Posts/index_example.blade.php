@@ -14,7 +14,7 @@
     <div class="dropdown m-3 row justify-content-end">
         <form class="form-inline" role="search" action="{{route('posts.index_example')}}" method="GET" >
 
-            <div class="form-group">
+            <div class="form-group">                                                       {{--把一個value指定成request()->input  名字叫keyword controller就可以讀取到input裡的值--}}
                 <input name="keyword" id="keyword" class="form-control mr-sm-2" type="text" placeholder="文章名稱" value="{{request()->input('keyword')}}">
             </div>
 
@@ -22,6 +22,7 @@
                 {{-- 注意 --}}
                <select class="form-control form-select" name="sort">
                    <option value="">請選擇排序</option>
+                                            {{--如果寫成request()->input('sort')="old"  那麼每次都只會讀到old--}}
                    <option value="old" @if(request()->input('sort')=="old") selected @endif>較早文章</option>
                    <option value="new" @if(request()->input('sort')=="new") selected @endif>最新文章</option>
                    <option value="update" @if(request()->input('sort')=="update") selected @endif>最新編輯</option>

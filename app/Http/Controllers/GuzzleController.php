@@ -15,7 +15,7 @@ use Illuminate\View\View;
 class GuzzleController extends Controller
 {
 
-    protected string $apiUrl = 'https://covid-19.nchc.org.tw/api/covid19?CK=covid-19@nchc.org.tw&querydata=4051&limited=TWN';
+    protected  $apiUrl = 'https://covid-19.nchc.org.tw/api/covid19?CK=covid-19@nchc.org.tw&querydata=4051&limited=TWN';
 
 
     public function index()

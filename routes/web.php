@@ -78,7 +78,26 @@ Route::group(['prefix'=>'guzzle'],function (){
     Route::get('example_index','GuzzleController@example_index')->name('guzzle.example_index');
 });
 
+//預約剪髮系統
+Route::group(['prefix'=>'barber'],function (){
+    //預約系統首頁
+    Route::get('index','barberController@index')->name('barber.index');
+    //預約儲存
+    Route::post('reserve','barberController@reserve')->name('barber.reserve');
+    //查看預約歷史紀錄
+    Route::get('history','barberController@history')->name('barber.history');
+    //預約系統後台
+    Route::get('backend','barberController@backend')->name('barber.backend');
+    //排班 最後做
+    Route::get('backend/schedule','barberController@schedule')->name('barber.schedule');
+    //查看預約清單
+    Route::get('backend/reserveList','barberController@reserveList')->name('barber.reserveList');
+    //查看預約明細(清單中的一筆預約)
+    Route::get('backend/reserveList/{date}/{time}','baberController@reserveDetail')->name('barber.reserveDetail');
+    //預約變更儲存
+    Route::put('backend/reserveList/{date}/{time}/update','barberController@reserveUpdate')->name('barber.reserveUpdate');
 
+});
 
 //測試 route
 /*Route::get('/news','NewsController@index');

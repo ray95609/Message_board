@@ -257,7 +257,8 @@ class PostsController extends Controller
             return redirect()->route('posts.index')->with('fail','沒有文章');
         }
 
-        return view('posts.show',['onePost'=>$onePost,
+        //修正大小寫
+        return view('Posts.show',['onePost'=>$onePost,
                                         'repost'=>$repost
         ]);
     }

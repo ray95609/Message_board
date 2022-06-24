@@ -13,21 +13,6 @@ class CreateRepostAndApiCovidTable extends Migration
      */
     public function up()
     {
-        /** 另外一個檔案有了 **/
-//        Schema::create('posts', function (Blueprint $table) {
-//            $table->bigIncrements('id');
-//            $table->string('post_name',255)->comment('文章名稱');
-//            $table->text('post_content')->comment('文章內容');
-//            $table->integer('post_user_id')->comment('文章發文人');
-//            //設定 創建文章時   自動帶入 當時時間 CURRENT_TIMESTAMP
-//            $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'))->comment('創建時間');
-//            //設定 當更新文章時 自動帶入  當時時間 CURRENT_TIMESTAMP
-//            $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'))->comment('文章更新時間');
-//        });
-//        //對表註解
-//        \DB::statement("ALTER TABLE `posts` comment '文章'");
-
-
         Schema::create('repost',function (Blueprint $table){
             $table->bigIncrements('id');
             $table->bigInteger('post_id');

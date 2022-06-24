@@ -79,6 +79,11 @@ Route::group(['prefix'=>'guzzle'],function (){
 });
 
 
+//預約系統
+Route::group(['prefix'=>'reserve'],function (){
+    Route::get('index','ReserveController@index')->name('reserve.index');
+});
+
 
 //測試 route
 /*Route::get('/news','NewsController@index');

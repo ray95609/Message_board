@@ -82,6 +82,11 @@ Route::group(['prefix'=>'guzzle'],function (){
 //預約系統
 Route::group(['prefix'=>'reserve'],function (){
     Route::get('index','ReserveController@index')->name('reserve.index');
+
+    /***
+     * TODO
+     * creat 儲存預約資料
+     */
 });
 
 

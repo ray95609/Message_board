@@ -82,10 +82,12 @@ Route::group(['prefix'=>'guzzle'],function (){
 //預約系統
 Route::group(['prefix'=>'reserve'],function (){
     Route::get('index','ReserveController@index')->name('reserve.index');
+    //預約儲存邏輯
+    Route::post('create','ReserveController@create')->name('reserve.create');
 
     /***
      * TODO
-     * creat 儲存預約資料
+     * 查看預約紀錄、取消預約
      */
 });
 

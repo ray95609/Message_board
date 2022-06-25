@@ -36,36 +36,37 @@
     }
 
 </style>
-
+@if(Session::has('fail'))
+    <div class="alert alert-info" role="alert">
+        <strong>請選擇其他時間或設計師</strong>
+    </div>
+@endif
     <div class="main row ">
-        <form  action="" method="POST"  >
+        <form  action="{{route('reserve.create')}}" method="POST"  >
+            @csrf
             <div class="pickpack ">
                 <h5>請選擇日期</h5>
-               <select class="pick col  mb-3 date_pick" >
-                    <option class="date" value="06/25">{{$sevenday[0]->format('Y-m-d')}}</option>
-
+               <select class="pick col  mb-3 date_pick" id="date" name="date">
+                    <option  class="date" value="{{$sevenday[0]->format('Y-m-d')}}">{{$sevenday[0]->format('Y-m-d')}}</option>
                 </select>
             </div>
             <div class="pickpack ">
                 <h5>請選擇時間</h5>
-                <select class="pick col  mb-3 time_pick" >
-                    <option class="time" value="1">{{$workTime[0]->format('H:i')}}</option>
-
+                <select class="pick col  mb-3 time_pick"  id="time" name="time">
+                    <option class="time" value="{{$workTime[0]->format('H:i')}}">{{$workTime[0]->format('H:i')}}</option>
                 </select>
             </div>
             <div class="pickpack ">
                 <h5>請選擇設計師</h5>
-                <select class="pick col  mb-3" >
-                    <option value="1">Alsa</option>
-                    <option value="2">Mollly</option>
-                    <option value="3">Aiel</option>
-
+                <select class="pick col  mb-3" id="designer" name="designer" >
+                    <option value="Alsa">Alsa</option>
+                    <option value="Mollly">Mollly</option>
+                    <option value="Aiel">Aiel</option>
                 </select>
             </div>
             <div class="submit row justify-content-center">
-                <input type="submit" value="預約">
+                <button type="submit" class="btn btn-dark">預約</button>
             </div>
-
         </form>
 
     </div>
@@ -86,7 +87,7 @@
             <tr>
                 <th scope="row">{{$workTime[$i]->format('H:i')}}</th>
                 @for($j=0;$j<7;$j++)
-                <td class="choice"><button class="btn btn-dark tt" data-date="{{$sevenday[$j]->format('Y-m-d')}}" data-time="{{$workTime[$i]->format('H:i')}}">預約</button></td>
+                <td class="choice"><button class="btn btn-dark tt"  data-date="{{$sevenday[$j]->format('Y-m-d')}}" data-time="{{$workTime[$i]->format('H:i')}}">預約</button></td>
                 @endfor
             </tr>
             @endfor
@@ -106,14 +107,6 @@
             $(".time").val(time);
             $(".date").text(date);
             $(".time").text(time);
-
-            for(i=1;i<7;i++){
-                $(".date_pick option[index='1']").remove();
-
-                $(".time_pick option[index='1']").remove();
-                }
-
-
 
         //測試用
         /*let data_date=$(".date").attr("value")

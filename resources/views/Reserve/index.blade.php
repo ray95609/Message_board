@@ -5,7 +5,7 @@
 <style>
     .main{
         margin: auto;
-        width: 600px;
+        width: 800px;
         height: 180px;
         box-shadow: darkgray 5px 5px 10px;
         border-radius: 10px;
@@ -14,7 +14,7 @@
 
     .pickpack{
         float: left;
-        margin:50px 50px 20px 50px ;
+        margin:50px 50px 20px 80px ;
     }
 
     .pick{
@@ -37,20 +37,19 @@
 
 </style>
 
-
     <div class="main row ">
         <form  action="" method="POST"  >
             <div class="pickpack ">
                 <h5>請選擇日期</h5>
                <select class="pick col  mb-3 date_pick" >
-                    <option class="date" value="06/25">06/25</option>
+                    <option class="date" value="06/25">{{$sevenday[0]->format('Y-m-d')}}</option>
 
                 </select>
             </div>
             <div class="pickpack ">
                 <h5>請選擇時間</h5>
                 <select class="pick col  mb-3 time_pick" >
-                    <option class="time" value="1">11~12</option>
+                    <option class="time" value="1">{{$workTime[0]->format('H:i')}}</option>
 
                 </select>
             </div>
@@ -76,92 +75,21 @@
             <thead>
             <tr>
                 <th scope="col"> </th>
-                <th scope="col">06/25</th>
-                <th scope="col">06/26</th>
-                <th scope="col">06/27</th>
-                <th scope="col">06/28</th>
-                <th scope="col">06/29</th>
-                <th scope="col">06/30</th>
-                <th scope="col">07/01</th>
+                @for($i=0;$i<7;$i++)
+                <th scope="col">{{$sevenday[$i]->format('m-d')}}</th>
+                @endfor
             </tr>
+
             </thead>
             <tbody>
+            @for($i=0;$i<7;$i++)
             <tr>
-                <th scope="row">11~12</th>
-                <td class="choice"><button class="btn btn-dark tt" data-date="06/25" data-time="11~12">預約</button></td>
-                <td class="choice"><button class="btn btn-dark tt" data-date="06/26" data-time="11~12">預約</button></td>
-                <td class="choice"><button class="btn btn-dark tt" data-date="06/27" data-time="11~12">預約</button></td>
-                <td class="choice"><button class="btn btn-dark tt" data-date="06/28" data-time="11~12">預約</button></td>
-                <td class="choice"><button class="btn btn-dark tt" data-date="06/29" data-time="11~12">預約</button></td>
-                <td class="choice"><button class="btn btn-dark tt" data-date="06/30" data-time="11~12">預約</button></td>
-                <td class="choice"><button class="btn btn-dark tt" data-date="07/01" data-time="11~12">預約</button></td>
+                <th scope="row">{{$workTime[$i]->format('H:i')}}</th>
+                @for($j=0;$j<7;$j++)
+                <td class="choice"><button class="btn btn-dark tt" data-date="{{$sevenday[$j]->format('Y-m-d')}}" data-time="{{$workTime[$i]->format('H:i')}}">預約</button></td>
+                @endfor
             </tr>
-            <tr>
-                <th scope="row">12~13</th>
-                <td class="choice"><button class="btn btn-dark tt" data-date="06/25" data-time="12~13">預約</button></td>
-                <td class="choice"><button class="btn btn-dark tt" data-date="06/26" data-time="12~13">預約</button></td>
-                <td class="choice"><button class="btn btn-dark tt" data-date="06/27" data-time="12~13">預約</button></td>
-                <td class="choice"><button class="btn btn-dark tt" data-date="06/28" data-time="12~13">預約</button></td>
-                <td class="choice"><button class="btn btn-dark tt" data-date="06/29" data-time="12~13">預約</button></td>
-                <td class="choice"><button class="btn btn-dark tt" data-date="06/30" data-time="12~13">預約</button></td>
-                <td class="choice"><button class="btn btn-dark tt" data-date="07/01" data-time="12~13">預約</button></td>
-
-            </tr>
-            <tr>
-                <th scope="row">13~14</th>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-
-            </tr>
-            <tr>
-                <th scope="row">14~15</th>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-            </tr>
-            <tr>
-                <th scope="row">15~16</th>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-            </tr>
-            <tr>
-                <th scope="row">16~17</th>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-            </tr>
-            <tr>
-                <th scope="row">17~18</th>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-                <td class="choice"><button class="btn btn-dark">預約</button></td>
-            </tr>
-
-
-
-
+            @endfor
             </tbody>
         </table>
 
@@ -184,8 +112,6 @@
 
                 $(".time_pick option[index='1']").remove();
                 }
-
-
 
 
 

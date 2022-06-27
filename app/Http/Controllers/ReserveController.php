@@ -142,8 +142,34 @@ class ReserveController extends Controller
     }
 
 
+    public function history($user_id){
+
+        if(!Auth::id()){
+            return redirect()->route('login');
+
+        }else{
+            $history=Reserve::join ('users','reserve.user_id','=','users.id')
+            ->select('reserve.*','users.*')
+                ->where('reserve.user_id','=',$user_id)
+                ->orderBy('date')->paginate(5);
+
+            if ($history){
+                return view('Reserve.history',['history'=>$history]);
+
+            }else{
+
+                return redirect()->route('reserve.index')->with('nohistory','沒有預約紀錄');
+            }
+
+
+
+        }
+
+
+    }
+
     /***
      * TODO
-     * 查看預約紀錄、取消預約
+     * 取消預約
      */
 }

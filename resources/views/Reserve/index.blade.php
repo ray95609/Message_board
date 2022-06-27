@@ -41,6 +41,11 @@
         <strong>請選擇其他時間或設計師</strong>
     </div>
 @endif
+@if(Session::has('nohistory'))
+    <div class="alert alert-info" role="alert">
+        <strong>無預約紀錄</strong>
+    </div>
+@endif
     <div class="main row ">
         <form  action="{{route('reserve.create')}}" method="POST"  >
             @csrf
@@ -101,7 +106,13 @@
         </table>
 
     </div>
+<div class="m-2 row justify-content-end">
+    <a href="{{route('reserve.history',['user_id'=>Auth::id()])}}" ><button class="btn-outline-info">查看預約紀錄</button></a>
+</div>
 
+<div class="row offset-md-6">
+    <a href="{{route('posts.index')}}" class="btn btn-info">返回</a>
+</div>
 
 <script>
     $(".tt").click(function (e){

@@ -69,6 +69,7 @@
 <div class="row">{!! $allPosts->links() !!}</div>
 
     <div class="m-2 row justify-content-end">
+        <a href="{{route('reserve.index')}}" ><button class="btn-outline-info">預約系統</button></a>
         <a href="{{route('guzzle.index')}}" ><button class="btn-outline-info">每日確診人數</button></a>
     </div>
 

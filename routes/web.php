@@ -84,10 +84,11 @@ Route::group(['prefix'=>'reserve'],function (){
     Route::get('index','ReserveController@index')->name('reserve.index');
     //預約儲存邏輯
     Route::post('create','ReserveController@create')->name('reserve.create');
-
+    //查看預約歷史紀錄
+    Route::get('history/{user_id}','ReserveController@history')->name('reserve.history');
     /***
      * TODO
-     * 查看預約紀錄、取消預約
+     * 取消預約
      */
 });
 

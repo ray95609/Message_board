@@ -72,22 +72,21 @@ class ReserveController extends Controller
 
       for ($k=0;$k<$countRepeatList;$k++){
           $repeatDate=Carbon::parse($repeatList[$k])->format('Y-m-d');
-          $repeatDateList[]=$repeatDate;
 
           $repeatTime=Carbon::parse($repeatList[$k])->format('H:i');
-          $repeatTimeList[]=$repeatTime;
+
+          $checkDateTime[]=$repeatDate.$repeatTime;
 
       }
 
-      /*終於找出額滿的日期跟時段，現在要丟到前端去做比較*/
 
 
 
 
 
+        return view('Reserve.index',['sevenday'=>$sevenDay,'workTime'=>$workTime,'checkDateTime'=>$checkDateTime ]);
 
-        return view('Reserve.index',['sevenday'=>$sevenDay,'workTime'=>$workTime,
-                                          'repeatDateList'=>$repeatDateList,'repeatTimeList'=>$repeatTimeList]);
+
     }
 
 

@@ -83,18 +83,20 @@
 
             </thead>
             <tbody>
-            @for($i=0;$i<7;$i++)
+            @foreach($workTime as $time)
             <tr>
-                <th scope="row">{{$workTime[$i]->format('H:i')}}</th>
-                @for($j=0;$j<7;$j++)
-                <td class="choice"><button data-date="{{$day=$sevenday[$j]->format('Y-m-d')}}" data-time="{{$time=$workTime[$i]->format('H:i')}}"
-                                           class="tt btn @if(in_array($day,$repeatDateList) && in_array($time,$repeatTimeList))btn-danger @endif
-                                                         @if(!in_array($day,$repeatDateList) || !in_array($time,$repeatTimeList)) btn-dark @endif "  >
-                                                         @if(in_array($day,$repeatDateList) && in_array($time,$repeatTimeList))額滿@endif
-                                                         @if(!in_array($day,$repeatDateList) || !in_array($time,$repeatTimeList))預約@endif</button></td>
-                @endfor
+                <th scope="row">{{$time->format('H:i')}}</th>
+                @foreach($sevenday as $day)
+
+                <td class="choice"><button data-date="{{$dayF=$day->format('Y-m-d')}}" data-time="{{$timeF=$time->format('H:i')}}"
+                                           class="{{$dateTime=$dayF.$timeF}}
+                                           tt btn @if(in_array($dateTime,$checkDateTime))btn-danger @endif
+                                                         @if(!in_array($dateTime,$checkDateTime)) btn-dark @endif "  >
+                                                         @if(in_array($dateTime,$checkDateTime))額滿@endif
+                                                         @if(!in_array($dateTime,$checkDateTime))預約@endif</button></td>
+                @endforeach
             </tr>
-            @endfor
+            @endforeach
             </tbody>
         </table>
 

@@ -88,8 +88,10 @@
                 <th scope="row">{{$workTime[$i]->format('H:i')}}</th>
                 @for($j=0;$j<7;$j++)
                 <td class="choice"><button data-date="{{$day=$sevenday[$j]->format('Y-m-d')}}" data-time="{{$time=$workTime[$i]->format('H:i')}}"
-                                           class="tt btn @if(in_array($day,$repeatDateList) && in_array($time,$repeatTimeList))btn-danger @endif   @if(!in_array($day,$repeatDateList) || !in_array($time,$repeatTimeList)) btn-dark @endif "  >
-                        @if(in_array($day,$repeatDateList) && in_array($time,$repeatTimeList))額滿@endif @if(!in_array($day,$repeatDateList) || !in_array($time,$repeatTimeList))預約@endif</button></td>
+                                           class="tt btn @if(in_array($day,$repeatDateList) && in_array($time,$repeatTimeList))btn-danger @endif
+                                                         @if(!in_array($day,$repeatDateList) || !in_array($time,$repeatTimeList)) btn-dark @endif "  >
+                                                         @if(in_array($day,$repeatDateList) && in_array($time,$repeatTimeList))額滿@endif
+                                                         @if(!in_array($day,$repeatDateList) || !in_array($time,$repeatTimeList))預約@endif</button></td>
                 @endfor
             </tr>
             @endfor

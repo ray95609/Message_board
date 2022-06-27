@@ -46,13 +46,11 @@ class ReserveController extends Controller
         //製作已預約日期與時間集合
         $checkDatas=array();
 
-
-
         for ($i=0;$i<=$countReveser-1;$i++){
             //把時間跟日期挑出來，塞進檢查集合
             $checkData=$reserve[$i]->date;
             $checkTime=$reserve[$i]->time;
-            $checkDatas[]=$checkData.$checkTime;
+            $checkDatas[]=$checkData.' '.$checkTime;
 
         }
 
@@ -66,14 +64,30 @@ class ReserveController extends Controller
            return $v==3;
        });
 
+      //取出key
+      $repeatList=array_keys($repeatList);
+      $countRepeatList=count($repeatList);
+
+      //把完整間切成日期跟時間 再塞到集合裡
+
+      for ($k=0;$k<$countRepeatList;$k++){
+          $repeatDate=Carbon::parse($repeatList[$k])->format('Y-m-d');
+          $repeatDateList[]=$repeatDate;
+
+          $repeatTime=Carbon::parse($repeatList[$k])->format('H:i');
+          $repeatTimeList[]=$repeatTime;
+
+      }
+
       /*終於找出額滿的日期跟時段，現在要丟到前端去做比較*/
-        dd($repeatList);
 
 
 
 
 
-        return view('Reserve.index',['sevenday'=>$sevenDay,'workTime'=>$workTime]);
+
+        return view('Reserve.index',['sevenday'=>$sevenDay,'workTime'=>$workTime,
+                                          'repeatDateList'=>$repeatDateList,'repeatTimeList'=>$repeatTimeList]);
     }
 
 

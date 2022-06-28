@@ -98,6 +98,18 @@ Route::group(['prefix'=>'barber'],function (){
     Route::put('backend/reserveList/{date}/{time}/update','barberController@reserveUpdate')->name('barber.reserveUpdate');
 
 });
+//預約系統
+Route::group(['prefix'=>'reserve'],function (){
+    Route::get('index','ReserveController@index')->name('reserve.index');
+    //預約儲存邏輯
+    Route::post('create','ReserveController@create')->name('reserve.create');
+    //查看預約歷史紀錄
+    Route::get('history/{user_id}','ReserveController@history')->name('reserve.history');
+    /***
+     * TODO
+     * 取消預約
+     */
+});
 
 //測試 route
 /*Route::get('/news','NewsController@index');

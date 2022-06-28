@@ -11,6 +11,9 @@ class ReserveController extends Controller
 {
     public function index(){
 
+
+        //@todo 沒有預設值會報錯
+        $checkDateTime = [];
         //產出未來7天的集合
         //把日期格式String化，不然等等迴圈會一直操作同一塊記憶體
         $oneday=Carbon::tomorrow()->toDateString();
@@ -68,6 +71,8 @@ class ReserveController extends Controller
       $repeatList=array_keys($repeatList);
       $countRepeatList=count($repeatList);
 
+
+      //@todo 沒有預設值會報錯 這邊最好加個 if(!empty($countRepeatList))
       //把完整間切成日期跟時間 再塞到集合裡
 
       for ($k=0;$k<$countRepeatList;$k++){

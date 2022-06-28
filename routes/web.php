@@ -117,3 +117,13 @@ Route::group(['prefix'=>'reserve'],function (){
 Route::get('/news/{id}','NewsController@show_id');
 Route::resource('news','NewsController');
 Route::get('/hello','NewsController@hello');*/
+
+
+//預約系統
+Route::group(['prefix'=>'reserve_example'],function (){
+    Route::get('index','Reserve_ExampleController@index')->name('reserve_example.index');
+    //預約儲存邏輯
+    Route::post('create','Reserve_ExampleController@create')->name('reserve_example.create');
+    //查看預約歷史紀錄
+    Route::get('history/{user_id}','Reserve_ExampleController@history')->name('reserve_example.history');
+});

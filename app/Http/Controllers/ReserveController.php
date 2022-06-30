@@ -78,15 +78,19 @@ class ReserveController extends Controller
 
         //@todo 沒有預設值會報錯
         $checkDateTime = [];
+      if(!empty($countRepeatList)){
+          for ($k=0;$k<$countRepeatList;$k++){
+              $repeatDate=Carbon::parse($repeatList[$k])->format('Y-m-d');
 
-      for ($k=0;$k<$countRepeatList;$k++){
-          $repeatDate=Carbon::parse($repeatList[$k])->format('Y-m-d');
+              $repeatTime=Carbon::parse($repeatList[$k])->format('H:i');
 
-          $repeatTime=Carbon::parse($repeatList[$k])->format('H:i');
+              $checkDateTime[]=$repeatDate.$repeatTime;
 
-          $checkDateTime[]=$repeatDate.$repeatTime;
+          }
 
       }
+
+
 
 
 

@@ -6,14 +6,14 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Reserve;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class ReserveController extends Controller
 {
     public function index(){
 
 
-        //@todo 沒有預設值會報錯
-        $checkDateTime = [];
+
         //產出未來7天的集合
         //把日期格式String化，不然等等迴圈會一直操作同一塊記憶體
         $oneday=Carbon::tomorrow()->toDateString();
@@ -39,14 +39,15 @@ class ReserveController extends Controller
             $time=Carbon::parse($time)->addHour()->toTimeString();
 
         }
-
+        //@@todo where 限制查詢區間在未來7天
         //找出資料庫已存在預約存入集合中 用來比對是否已預約額滿
         //把已經預約的資料找出來(status=0)
+        $today=Carbon::now()->format('Y-m-d');
         $reserve=Reserve::select(['reserve.*'])
-            ->where([['status','=','0']])->get();
-        $countReveser=count($reserve);
+            ->where([['status','=','0'],['date','>',$today]])->get();
 
         //製作已預約日期與時間集合
+        $countReveser=count($reserve);
         $checkDatas=array();
 
         for ($i=0;$i<=$countReveser-1;$i++){
@@ -57,12 +58,12 @@ class ReserveController extends Controller
 
         }
 
-        //找出重複次數大於3的值
+        //找出重複的值
        $repeat=array_count_values($checkDatas);
        $countRepeat=count($repeat);
 
 
-       //array_filter的過濾方法
+       //array_filter的過濾方法 找出重複3次的值 因為一個日期+時段最多3次(三個設計師)
       $repeatList=array_filter($repeat,function ($v){
            return $v==3;
        });
@@ -74,6 +75,9 @@ class ReserveController extends Controller
 
       //@todo 沒有預設值會報錯 這邊最好加個 if(!empty($countRepeatList))
       //把完整間切成日期跟時間 再塞到集合裡
+
+        //@todo 沒有預設值會報錯
+        $checkDateTime = [];
 
       for ($k=0;$k<$countRepeatList;$k++){
           $repeatDate=Carbon::parse($repeatList[$k])->format('Y-m-d');

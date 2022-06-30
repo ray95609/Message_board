@@ -106,10 +106,11 @@
         </table>
 
     </div>
+@if(Auth::id())
 <div class="m-2 row justify-content-end">
     <a href="{{route('reserve.history',['user_id'=>Auth::id()])}}" ><button class="btn-outline-info">查看預約紀錄</button></a>
 </div>
-
+@endif
 <div class="row offset-md-6">
     <a href="{{route('posts.index')}}" class="btn btn-info">返回</a>
 </div>

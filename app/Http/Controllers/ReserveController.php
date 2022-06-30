@@ -85,17 +85,8 @@ class ReserveController extends Controller
               $repeatTime=Carbon::parse($repeatList[$k])->format('H:i');
 
               $checkDateTime[]=$repeatDate.$repeatTime;
-
           }
-
       }
-
-
-
-
-
-
-
 
         return view('Reserve.index',['sevenday'=>$sevenDay,'workTime'=>$workTime,'checkDateTime'=>$checkDateTime ]);
 
@@ -162,8 +153,9 @@ class ReserveController extends Controller
 
         }else{
             $history=Reserve::join ('users','reserve.user_id','=','users.id')
-            ->select('reserve.*','users.*')
-                ->where('reserve.user_id','=',$user_id)
+            ->select('reserve.*','reserve.id as reserve_id','users.*')
+                ->where([['reserve.user_id','=',$user_id],
+                    ['status','=','0']])
                 ->orderBy('date')->paginate(5);
 
             if ($history){
@@ -181,8 +173,17 @@ class ReserveController extends Controller
 
     }
 
-    /***
-     * TODO
-     * 取消預約
-     */
+   public function cancel($user_id,$reserve_id){
+
+        $return=['code'=>'fail'];
+        $cancel_reserve=Reserve::find($reserve_id);
+        if ($cancel_reserve) {
+            $cancel_reserve->status=1;
+            $cancel_reserve->save();
+            $return= ['code'=>'success'];
+
+        }
+        return response()->json($return);
+
+   }
 }

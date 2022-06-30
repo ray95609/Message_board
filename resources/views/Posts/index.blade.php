@@ -1,15 +1,40 @@
 
-{{-- 繼承預設版型為什麼沒有php開頭? --}}
+
 
 @extends('layouts.app')
 
 
 @section('content')
+    <style>
+        .main{
+            margin: auto;
+            width: 800px;
+            border-radius: 5px;
+            box-shadow: gray 10px 10px 10px;
+
+        }
+
+        .article{
+            width: 100px;
+            height: 80px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            box-sizing:border-box;
+
+        }
+
+    </style>
+
+
     @if(Session::has('nouser'))
         <div class="alert alert-info" role="alert">
             <strong>請先登入才能回覆</strong>
         </div>
     @endif
+    <div class="main">
     <div class="dropdown m-3 row justify-content-end">
         <form class="form-inline" role="search" action="{{route('posts.search')}}" method="GET" >
 
@@ -31,7 +56,7 @@
     <div class="card-header">
     文章列表
     <a href="{{route('posts.create')}}" class="float-right btn btn-primary">新增文章</a>
-</div>
+    </div>
 
 
 <table class="table table-hover">
@@ -42,6 +67,7 @@
         <th> 文章標題</th>
         <th> 作者</th>
         <th> 內容</th>
+        <th>編輯</th>
     </tr>
     </thead>
 
@@ -49,11 +75,11 @@
     @foreach($allPosts as $key => $rows) {{--意思是把所有文章列表的陣列，取出來塞進去?--}}
         <tr>
             <td >{{$key+1}} </td>
-            <td data-id="{{$rows->id}}" class="show-data"
+            <td data-id="{{$rows->id}}" class="show-data article  "
                 style="cursor: pointer"
                 >{{$rows->post_name}} </td>
             <td >{{$rows->name}} </td>
-            <td >{{$rows->post_content}}</td>
+            <td class="article">{{$rows->post_content}}</td>
             @if(Auth::user() && Auth::id() ==$rows->post_user_id)
                 <td>
                 <a href="{{route('posts.edit',['id'=>$rows->id])}}" class="btn btn-success btn-sm mt-sm-1" >編輯</a>
@@ -66,13 +92,14 @@
     @endforeach
     </tbody>
 </table>
+
 <div class="row">{!! $allPosts->links() !!}</div>
 
     <div class="m-2 row justify-content-end">
         <a href="{{route('reserve.index')}}" ><button class="btn-outline-info">預約系統</button></a>
         <a href="{{route('guzzle.index')}}" ><button class="btn-outline-info">每日確診人數</button></a>
     </div>
-
+</div>
 <!--axios.js & fetch  非同步請求的另外套件-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">

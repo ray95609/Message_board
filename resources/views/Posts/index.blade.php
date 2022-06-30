@@ -15,13 +15,13 @@
         }
 
         .article{
-            width: 100px;
-            height: 80px;
+            width: 200px;
+            height: 60px;
             overflow: hidden;
             text-overflow: ellipsis;
             display: -webkit-box;
             -webkit-box-orient: vertical;
-            -webkit-line-clamp: 3;
+            -webkit-line-clamp: 2;
             box-sizing:border-box;
 
         }

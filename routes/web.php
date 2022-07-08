@@ -106,3 +106,14 @@ Route::group(['prefix'=>'reserve_example'],function (){
     //查看預約歷史紀錄
     Route::get('history/{user_id}','Reserve_ExampleController@history')->name('reserve_example.history');
 });
+
+
+//Excel test
+Route::group(['prefix'=>'excel'],function (){
+    //allReserve export
+    Route::get('export','ExcelController@allReserveExport')->name('excel.export');
+    //userhistory export 只匯出user_id的資料
+    Route::get('export/{user_id}','ExcelController@userReserveExport')->name('excel.userexport');
+
+
+});

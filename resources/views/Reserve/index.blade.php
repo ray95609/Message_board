@@ -115,6 +115,8 @@
     <a href="{{route('posts.index')}}" class="btn btn-info">返回</a>
 </div>
 
+
+
 <script>
     $(".tt").click(function (e){
             e.preventDefault();

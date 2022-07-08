@@ -58,9 +58,12 @@
         <div class="row justify-content-center">{!! $history->links() !!}</div>
     </div>
 
-    <div class="offset-md-10">
-        <a href="{{route('reserve.index')}}" class="btn btn-info" >返回</a>
+    <div class="offset-md-8">
+        <a href="{{route('excel.userexport',['user_id'=>Auth::id()])}}" class="row  btn btn-info" style="margin-right: 20%">預約記錄匯出</a>
+        <a href="{{route('reserve.index')}}" class="row btn btn-info" >返回</a>
     </div>
+
+
 
     <script>
 

@@ -8,12 +8,16 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 
 class ReserveExport implements FromCollection
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
+
+
     public function collection()
     {
         return Reserve::all();
+    }
+
+    public function headings(): array
+    {
+        return ['id','date','time','designer','name'];
     }
 
 

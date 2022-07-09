@@ -5,7 +5,7 @@ namespace App\Imports;
 use App\Models\Reserve;
 use Maatwebsite\Excel\Concerns\ToModel;
 
-class ExcelImport implements ToModel
+class postImport implements ToModel
 {
     /**
     * @param array $row

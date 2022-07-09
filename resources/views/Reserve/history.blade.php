@@ -58,8 +58,9 @@
         <div class="row justify-content-center">{!! $history->links() !!}</div>
     </div>
 
-    <div class="offset-md-8">
-        <a href="{{route('excel.userexport',['user_id'=>Auth::id()])}}" class="row  btn btn-info" style="margin-right: 20%">預約記錄匯出</a>
+    <div class="offset-md-2">
+        <a href="{{route('excel.userexport',['user_id'=>Auth::id()])}}" class="row  btn btn-info" style="margin-right: 20%">預約記錄匯出.excel</a>
+        <a href="{{route('excel.userexport_csv',['user_id'=>Auth::id()])}}" class="row  btn btn-info" style="margin-right: 20%">預約記錄匯出.csv</a>
         <a href="{{route('reserve.index')}}" class="row btn btn-info" >返回</a>
     </div>
 

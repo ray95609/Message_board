@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Exports\historyReserveExport;
+use App\Exports\csvHistoryReserveExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Reserve;
 use App\Exports\ReserveExport;
@@ -28,5 +29,11 @@ class ExcelController extends Controller
 
     }
 
+    public function csvUserIdReserveExport($user_id){
+
+        $time=Carbon::now();
+        return (new csvHistoryReserveExport($user_id))->download($time.'userReserveList.csv');
+
+    }
 
 }

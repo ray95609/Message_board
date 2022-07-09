@@ -114,6 +114,6 @@ Route::group(['prefix'=>'excel'],function (){
     Route::get('export','ExcelController@allReserveExport')->name('excel.export');
     //userhistory export 只匯出user_id的資料
     Route::get('export/{user_id}','ExcelController@userIdReserveExport')->name('excel.userexport');
-
-
+    //userhistory csv export 只匯出user_id的資料
+    Route::get('export/csv/{user_id}','ExcelController@csvUserIdReserveExport')->name('excel.userexport_csv');
 });

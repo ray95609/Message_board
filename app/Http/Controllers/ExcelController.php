@@ -36,4 +36,13 @@ class ExcelController extends Controller
 
     }
 
+    public function excelImport(){
+
+        return view('Import.excelImport');
+    }
+
+    public function excelImportUpload(){
+
+
+    }
 }

@@ -13,18 +13,13 @@
             box-shadow: gray 10px 10px 10px;
 
         }
-
-        .article{
-            width: 200px;
-            height: 60px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
-            box-sizing:border-box;
-
-        }
+    table{
+        table-layout: fixed;
+    }
+    td{overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        word-wrap: break-word;}
 
     </style>
 
@@ -56,7 +51,7 @@
     <div class="card-header">
     文章列表
     <a href="{{route('posts.create')}}" class="float-right btn btn-primary">新增文章</a>
-    <a href="{{route('excel.import')}}" class="float-right btn btn-secondary" style="margin-right: 5px">匯入文章</a>
+    <a href="{{--route('excel.import')--}}"  class="float-right btn btn-secondary" style="margin-right: 5px">匯入文章</a>
     </div>
 
 
@@ -76,11 +71,11 @@
     @foreach($allPosts as $key => $rows) {{--意思是把所有文章列表的陣列，取出來塞進去?--}}
         <tr>
             <td >{{$key+1}} </td>
-            <td data-id="{{$rows->id}}" class="show-data article  "
+            <td data-id="{{$rows->id}}" class="show-data"
                 style="cursor: pointer"
                 >{{$rows->post_name}} </td>
             <td >{{$rows->name}} </td>
-            <td class="article">{{$rows->post_content}}</td>
+            <td >{{$rows->post_content}}</td>
             @if(Auth::user() && Auth::id() ==$rows->post_user_id)
                 <td>
                 <a href="{{route('posts.edit',['id'=>$rows->id])}}" class="btn btn-success btn-sm mt-sm-1" >編輯</a>
@@ -100,6 +95,7 @@
         <a href="{{route('reserve.index')}}" ><button class="btn-outline-info">預約系統</button></a>
         <a href="{{route('guzzle.index')}}" ><button class="btn-outline-info">每日確診人數</button></a>
     </div>
+
 </div>
 <!--axios.js & fetch  非同步請求的另外套件-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -135,6 +131,7 @@
                 });
 
         })
+
 
 </script>
 

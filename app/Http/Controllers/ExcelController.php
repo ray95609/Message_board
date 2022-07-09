@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Exports\historyReserveExport;
 use App\Exports\csvHistoryReserveExport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\postImport;
 use App\Models\Reserve;
 use App\Exports\ReserveExport;
 
@@ -41,8 +42,10 @@ class ExcelController extends Controller
         return view('Import.excelImport');
     }
 
-    public function excelImportUpload(){
+    public function excelImportUpload(Request $request){
 
+        Excel::import(new postImport,$request->file);
 
+        return redirect()->route('posts.index')->with('postImortSuccess','文章匯入成功');
     }
 }

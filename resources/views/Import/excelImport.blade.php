@@ -20,11 +20,11 @@
     </style>
 
     <div class="main">
-        <form action="{{route('excel.importUpload')}}" method="POST">
+        <form action="{{route('excel.importUpload')}}" method="POST"  enctype="multipart/form-data">
             @csrf
             <div class="col offset-sm-2"><h2>選擇匯入檔案</h2></div>
-            <div class="col offset-sm-2"><input type="file" class="con "></div>
-            <div class="col offset-sm-4"><button type="submit" class="btn btn-primary" class="con">確定匯入</button></div>
+            <div class="col offset-sm-2"><input type="file" name="file" class="con  "></div>
+            <div class="col offset-sm-4"><button type="submit"  class="btn btn-primary" class="con">確定匯入</button></div>
 
         </form>
     </div>

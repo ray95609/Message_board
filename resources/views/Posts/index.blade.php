@@ -51,7 +51,7 @@
     <div class="card-header">
     文章列表
     <a href="{{route('posts.create')}}" class="float-right btn btn-primary">新增文章</a>
-    <a href="{{--route('excel.import')--}}"  class="float-right btn btn-secondary" style="margin-right: 5px">匯入文章</a>
+    <a href="{{route('excel.import')}}"  class="float-right btn btn-secondary" style="margin-right: 5px">匯入文章</a>
     </div>
 
 
